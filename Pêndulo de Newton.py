@@ -59,12 +59,12 @@ l = 0.1 + R
 
 Vesf = 4/3 * math.pi * R**3 #(m3)
 
-mAluminio = dAluminio * Vesf
-mChumbo = dChumbo * Vesf
-mFerro = dFerro * Vesf
-mOuro = dOuro * Vesf
-mPlatina = dPlatina * Vesf
-mPrata = dPrata * Vesf
+mAluminio = dAluminio * Vesf    # Massa da bolinha   
+mChumbo = dChumbo * Vesf    # Massa da bolinha
+mFerro = dFerro * Vesf    # Massa da bolinha
+mOuro = dOuro * Vesf    # Massa da bolinha
+mPlatina = dPlatina * Vesf    # Massa da bolinha
+mPrata = dPrata * Vesf    # Massa da bolinha
 
 '''
 Iteração 1
@@ -76,10 +76,14 @@ Considerações Especificas:
 
 '''
 
+# Função da derivada
+
 def chumbo(v,t):
     dydt = v[1]
     dzdt = ((mChumbo*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mChumbo*l)
     return [dydt, dzdt]
+
+# Parâmetros iniciais, linspace(gerar lista de tempo), odeint(calcula a derivada)
 
 y0 = math.pi/2
 z0 = 0
@@ -87,18 +91,20 @@ V0 = [y0, z0]
 T = linspace(0,50000,500001)
 Z = odeint(chumbo,V0,T)
 
+# Tranformando de radiano para graus e ajustando para que plote os valores certos
+
 for e in Z:
     e[0] = pi_rad(e[0])
     e[0] = e[0] - 180
 
 print(Z)
 
-plt.plot(T, Z[:,0],'g')
-plt.axis([0, max(T), -90, 90])
-plt.ylabel('Ângulo (Em graus)')
-plt.xlabel('t')
-plt.title('Chumbo')
-plt.show()
+plt.plot(T, Z[:,0],'g')     # Definindo quais variaveis serão plotados
+plt.axis([0, max(T), -90, 90])     # Definindo os valores máx e min a serem plotados
+plt.ylabel('Ângulo (Em graus)')     # Definindo a label do eixo y
+plt.xlabel('t')     # Definindo a label do eixo x
+plt.title('Chumbo')     # Definindo o título
+plt.show()     # Faz o gráfico
 
 '''
 Iteração 2
