@@ -89,12 +89,13 @@ Z = odeint(chumbo,V0,T)
 
 for e in Z:
     e[0] = pi_rad(e[0])
+    e[0] = e[0] - 180
 
 print(Z)
 
 plt.plot(T, Z[:,0],'g')
-plt.axis([0, max(T), 90, 270])
-plt.ylabel('Ângulo')
+plt.axis([0, max(T), -90, 90])
+plt.ylabel('Ângulo (Em graus)')
 plt.xlabel('t')
 plt.title('Chumbo')
 plt.show()
@@ -105,6 +106,8 @@ Iteração 2
 Considerações Especificas:
  
 - O pêndulo é constituido por apenas uma bolinha.
+- Consideramos diferentes materiais para as bolinha (O que altera, portanto, a densidade e 
+  massa de cada uma das bolinhas)
 
 '''
 
@@ -123,12 +126,13 @@ Z = odeint(aluminio,V0,T)
 
 for e in Z:
     e[0] = pi_rad(e[0])
+    e[0] = e[0] - 180
 
 print(Z)
 
 plt.plot(T, Z[:,0],'r')
-plt.axis([0, max(T), 90, 270])
-plt.ylabel('Ângulo')
+plt.axis([0, max(T), -90, 90])
+plt.ylabel('Ângulo (Em graus)')
 plt.xlabel('t')
 plt.title('Aluminio')
 plt.show()
@@ -148,12 +152,13 @@ Z = odeint(chumbo,V0,T)
 
 for e in Z:
     e[0] = pi_rad(e[0])
+    e[0] = e[0] - 180
 
 print(Z)
 
 plt.plot(T, Z[:,0],'g')
-plt.axis([0, max(T), 90, 270])
-plt.ylabel('Ângulo')
+plt.axis([0, max(T), -90, 90])
+plt.ylabel('Ângulo (Em graus)')
 plt.xlabel('t')
 plt.title('Chumbo')
 plt.show()
@@ -173,12 +178,13 @@ Z = odeint(ferro,V0,T)
 
 for e in Z:
     e[0] = pi_rad(e[0])
+    e[0] = e[0] - 180
 
 print(Z)
 
 plt.plot(T, Z[:,0],'b')
-plt.axis([0, max(T), 90, 270])
-plt.ylabel('Ângulo')
+plt.axis([0, max(T), -90, 90])
+plt.ylabel('Ângulo (Em graus)')
 plt.xlabel('t')
 plt.title('Ferro')
 plt.show()
@@ -198,12 +204,13 @@ Z = odeint(ouro,V0,T)
 
 for e in Z:
     e[0] = pi_rad(e[0])
+    e[0] = e[0] - 180
 
 print(Z)
 
 plt.plot(T, Z[:,0],'r')
-plt.axis([0, max(T), 90, 270])
-plt.ylabel('Ângulo')
+plt.axis([0, max(T), -90, 90])
+plt.ylabel('Ângulo (Em graus)')
 plt.xlabel('t')
 plt.title('Ouro')
 plt.show()
@@ -223,12 +230,13 @@ Z = odeint(platina,V0,T)
 
 for e in Z:
     e[0] = pi_rad(e[0])
+    e[0] = e[0] - 180
 
 print(Z)
 
 plt.plot(T, Z[:,0],'g')
-plt.axis([0, max(T), 90, 270])
-plt.ylabel('Ângulo')
+plt.axis([0, max(T), -90, 90])
+plt.ylabel('Ângulo (Em graus)')
 plt.xlabel('t')
 plt.title('Platina')
 plt.show()
@@ -248,12 +256,13 @@ Z = odeint(prata,V0,T)
 
 for e in Z:
     e[0] = pi_rad(e[0])
+    e[0] = e[0] - 180
 
 print(Z)
 
 plt.plot(T, Z[:,0],'')
-plt.axis([0, max(T), 90, 270])
-plt.ylabel('Ângulo')
+plt.axis([0, max(T), -90, 90])
+plt.ylabel('Ângulo (Em graus)')
 plt.xlabel('t')
 plt.title('Prata')
 plt.show()
