@@ -49,7 +49,7 @@ def chumbo(v,t):
     return [dydt, dzdt]
 
 
-    # DEFININDO OS PARÂMETROS A SEREM CALCULADOS:
+    # DEFININDO OS PARÂMETROS A SEREM UTILIZADOS NO CÁLCULO:
 
 y0 = math.pi/2
 z0 = 0
@@ -59,10 +59,14 @@ Tinicial = 0    # Tempo inicial
 Tfinal = 50000    # Tempo final
 Nmed = (Tfinal*10)+1  # Número de medições no intervalo de tempo
 
-T = linspace(Tinicial, Tfinal, Nmed)  # criando a lista de tempo e o número de medições nesse intervalo de tempo
-Z = odeint(chumbo, V0, T)       # obtendo os valores a serem plotados a parte da função da derivada da curva
-
 TPM = Tfinal/Nmed     # Tempo por medição (s)
+
+T = linspace(Tinicial, Tfinal, Nmed)  # criando a lista de tempo e o número de medições nesse intervalo de tempo
+
+
+    # EXECUTANDO O CÁLCULO:
+
+Z = odeint(chumbo, V0, T)       # obtendo os valores a serem plotados a parte da função da derivada da curva
 
 
     # TRANSFORMANDO OS DADOS DE RAD PARA GRAUS E ACERTANDO O MÓDULO:
@@ -77,28 +81,42 @@ for e in Z:
 p_maximo = []
 T2 = []
 
-for i in range(len(Z)-1):
 
-    if i > 0:
-        if Z[i][0] > Z[i+1][0]:
-            if Z[i][0] > Z[i-1][0]:
-                p_maximo.append(Z[i][0])
-                T2.append(i*TPM)
+for i in range(1, len(Z)-1):
+
+    if Z[i][0] > Z[i+1][0]:
+        if Z[i][0] > Z[i-1][0]:
+            p_maximo.append(Z[i][0])
+            T2.append(i*TPM)
+
+
+    # OBTENDO OS PONTOS MÍNIMOS DA FUNÇÃO ANTERIOR:
+
+p_minimo = []
+T3 = []
+
+for i in range(1, len(Z)-1):
+
+    if Z[i][0] < Z[i+1][0]:
+        if Z[i][0] < Z[i-1][0]:
+            p_minimo.append(Z[i][0])
+            T3.append(i*TPM)
 
 #======================================================================================================================#
 
 # PLOTANDO OS DADOS:
 
-plt.plot(T, Z[:,0],'g')     # Definindo quais variaveis serão plotados
-plt.axis([0, max(T), -90, 90])     # Definindo os valores máx e min a serem plotados
+plt.plot(T, Z[:, 0],'g')     # Definindo quais variaveis serão plotados
+plt.axis([0, max(T), -100, 100])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Ângulo (graus)')     # Definindo a label do eixo y
 plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
 plt.title('Chumbo')     # Definindo o título
-plt.show()     # Faz o gráfico
+plt.show()     # Faz o gráfico aparecer
 
-plt.plot(T2, p_maximo,'g')     # Definindo quais variaveis serão plotados
-plt.axis([0, max(T2), 0, 90])     # Definindo os valores máx e min a serem plotados
-plt.ylabel('Ângulo Máximo (graus)')     # Definindo a label do eixo y
+plt.plot(T2, p_maximo)     # Definindo quais variaveis serão plotados
+plt.plot(T3, p_minimo)     # Definindo quais variaveis serão plotados
+plt.axis([0, max(T2), -100, 100])     # Definindo os valores máx e min a serem plotados
+plt.ylabel('Ângulo Máximo/Mínimo (graus)')     # Definindo a label do eixo y
 plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
 plt.title('Chumbo')     # Definindo o título
-plt.show()     # Faz o gráfico
+plt.show()     # Faz o gráfico aparecer
