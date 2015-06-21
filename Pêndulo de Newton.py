@@ -15,7 +15,7 @@ Considerações Gerais:
 - O fio que segura a bolinha não tem massa.
 - A bolinha só se desloca nos eixos x e y do plano cartesiano.
 - A bolinha é considerada como um ponto no espaço, este ponto é seu centro de massa.
-- Temperatura do ar em 25˚C
+- Temperatura do ar em 25˚C.
 
 """
 # Importando as bibliotecas necessárias:
