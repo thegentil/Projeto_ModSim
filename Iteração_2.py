@@ -21,7 +21,7 @@ Considerações Gerais:
 
 # Importando as bibliotecas necessárias:
 
-from Parâmetros import *
+from Parametros import *
 
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
