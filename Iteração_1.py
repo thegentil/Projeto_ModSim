@@ -21,7 +21,7 @@ Considerações Gerais:
 
 # Importando as bibliotecas necessárias:
 
-from Parâmetros import *
+from Parametros import *
 
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
@@ -106,17 +106,19 @@ for i in range(1, len(Z)-1):
 
 # PLOTANDO OS DADOS:
 
-plt.plot(T, Z[:, 0],'g')     # Definindo quais variaveis serão plotados
+plt.plot(T, Z[:, 0],'g', label = 'angulação')     # Definindo quais variaveis serão plotados
 plt.axis([0, max(T), -100, 100])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Ângulo (graus)')     # Definindo a label do eixo y
 plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
 plt.title('Chumbo')     # Definindo o título
+plt.legend()    # Cria a legenda do gráfico
 plt.show()     # Faz o gráfico aparecer
 
-plt.plot(T2, p_maximo)     # Definindo quais variaveis serão plotados
-plt.plot(T3, p_minimo)     # Definindo quais variaveis serão plotados
+plt.plot(T2, p_maximo, label = 'Valores Máx')     # Definindo quais variaveis serão plotados
+plt.plot(T3, p_minimo, label = 'Valores Mín')     # Definindo quais variaveis serão plotados
 plt.axis([0, max(T2), -100, 100])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Ângulo Máximo/Mínimo (graus)')     # Definindo a label do eixo y
 plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
-plt.title('Chumbo')     # Definindo o título
+plt.title('Valores máx/Mín - Chumbo')     # Definindo o título
+plt.legend()    # Cria a legenda do gráfico
 plt.show()     # Faz o gráfico aparecer
