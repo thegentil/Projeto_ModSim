@@ -51,7 +51,7 @@ def chumbo(v,t):
 
     # DEFININDO OS PARÂMETROS A SEREM UTILIZADOS NO CÁLCULO:
 
-y0 = math.pi/2
+y0 = -math.pi/2
 z0 = 0
 V0 = [y0, z0]
 
@@ -73,7 +73,7 @@ Z = odeint(chumbo, V0, T)       # obtendo os valores a serem plotados a parte da
 
 for e in Z:
     e[0] = pi_rad(e[0])
-    e[0] = e[0] - 180
+    e[0] = e[0] + 180
 
 
     # OBTENDO OS PONTOS MÁXIMOS DA FUNÇÃO ANTERIOR:
