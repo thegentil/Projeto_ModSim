@@ -51,12 +51,12 @@ def chumbo(v,t):
 
     # DEFININDO OS PARÂMETROS A SEREM UTILIZADOS NO CÁLCULO:
 
-y0 = -math.pi/2
-z0 = 0
+y0 = math.pi/2
+z0 = -1
 V0 = [y0, z0]
 
 Tinicial = 0    # Tempo inicial
-Tfinal = 50000    # Tempo final
+Tfinal = 50000   # Tempo final
 Nmed = (Tfinal*10)+1  # Número de medições no intervalo de tempo
 
 TPM = Tfinal/Nmed     # Tempo por medição (s)
@@ -73,7 +73,6 @@ Z = odeint(chumbo, V0, T)       # obtendo os valores a serem plotados a parte da
 
 for e in Z:
     e[0] = pi_rad(e[0])
-    e[0] = e[0] + 180
 
 
     # OBTENDO OS PONTOS MÁXIMOS DA FUNÇÃO ANTERIOR:
@@ -88,6 +87,7 @@ for i in range(1, len(Z)-1):
         if Z[i][0] > Z[i-1][0]:
             p_maximo.append(Z[i][0])
             T2.append(i*TPM)
+            print(i*TPM)
 
 
     # OBTENDO OS PONTOS MÍNIMOS DA FUNÇÃO ANTERIOR:
@@ -106,19 +106,17 @@ for i in range(1, len(Z)-1):
 
 # PLOTANDO OS DADOS:
 
-plt.plot(T, Z[:, 0],'g', label = 'angulação')     # Definindo quais variaveis serão plotados
-plt.axis([0, max(T), -100, 100])     # Definindo os valores máx e min a serem plotados
+plt.plot(T, Z[:, 0],'g')     # Definindo quais variaveis serão plotados
+plt.axis([0, max(T), 90, 270])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Ângulo (graus)')     # Definindo a label do eixo y
 plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
 plt.title('Chumbo')     # Definindo o título
-plt.legend()    # Cria a legenda do gráfico
 plt.show()     # Faz o gráfico aparecer
 
-plt.plot(T2, p_maximo, label = 'Valores Máx')     # Definindo quais variaveis serão plotados
-plt.plot(T3, p_minimo, label = 'Valores Mín')     # Definindo quais variaveis serão plotados
-plt.axis([0, max(T2), -100, 100])     # Definindo os valores máx e min a serem plotados
+plt.plot(T2, p_maximo)     # Definindo quais variaveis serão plotados
+plt.plot(T3, p_minimo)     # Definindo quais variaveis serão plotados
+plt.axis([0, max(T2), 90, 270])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Ângulo Máximo/Mínimo (graus)')     # Definindo a label do eixo y
 plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
-plt.title('Valores máx/Mín - Chumbo')     # Definindo o título
-plt.legend()    # Cria a legenda do gráfico
+plt.title('Chumbo')     # Definindo o título
 plt.show()     # Faz o gráfico aparecer
