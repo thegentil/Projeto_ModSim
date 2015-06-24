@@ -73,6 +73,8 @@ def platina(v,t):
     dzdt = ((mPlatina*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mPlatina*l)
     return [dydt, dzdt]
 
+lista_materiais = [chumbo, aluminio, ferro, prata, ouro, platina]
+
 
     # DEFININDO OS PARÂMETROS A SEREM UTILIZADOS NO CÁLCULO:
 
@@ -94,42 +96,76 @@ for i in range(19):
 
     # CALCULANDO OS VALORES DO EIXO Y DO GRÁFICO (TEMPO DE ESTABILIZAÇÃO)
 
-Vgrafico = []
-for i in range(19):
+Vchumbo = []
+Valuminio = []
+Vferro = []
+Vprata = []
+Vouro = []
+Vplatina = []
+for f in lista_materiais:
 
-    print(i)
-    print('')
+    Vgrafico = []
+    for i in range(19):
 
-    y0 = (math.pi/2) + (i*((math.pi/180)*5))
-    z0 = 0
-    V0 = [y0, z0]
+        print(i)
+        print('')
 
-    Z = odeint(chumbo, V0, T)
+        y0 = (math.pi/2) + (i*((math.pi/180)*5))
+        z0 = 0
+        V0 = [y0, z0]
 
-    for e in Z:
-        e[0] = pi_rad(e[0])
-        e[0] = e[0] - 180
+        Z = odeint(f, V0, T)
 
-    Tstop = []
+        for e in Z:
+            e[0] = pi_rad(e[0])
+            e[0] = e[0] - 180
 
-    for x in range(1, len(Z)-1):
+        Tstop = []
 
-        if Z[x][0] > Z[x+1][0]:
-            if Z[x][0] > Z[x-1][0]:
-                if Z[x][0] <= 2:
-                    Tstop.append(x*TPM)
+        for x in range(1, len(Z)-1):
 
-    Vgrafico.append(Tstop[0])
+            if Z[x][0] <= 2:
+                if Z[x][0] > Z[x+1][0]:
+                    if Z[x][0] > Z[x-1][0]:
+                        Tstop.append(x*TPM)
+
+
+        if f == chumbo:
+            Vchumbo.append(Tstop[0])
+
+        elif f == aluminio:
+            Valuminio.append(Tstop[0])
+
+        elif f == ferro:
+            Vferro.append(Tstop[0])
+
+        elif f == prata:
+            Vprata.append(Tstop[0])
+
+        elif f == ouro:
+            Vouro.append(Tstop[0])
+
+        elif f == platina:
+            Vplatina.append(Tstop[0])
+
+        else:
+            pass
 
 
 #======================================================================================================================#
 
 # PLOTANDO OS DADOS:
 
-plt.plot(Agrafico, Vgrafico,'g')     # Definindo quais variaveis serão plotados
+plt.plot(Agrafico, Vchumbo, label = 'Chumbo')     # Definindo quais variaveis serão plotados
+plt.plot(Agrafico, Valuminio, label = 'Alumínio')
+plt.plot(Agrafico, Vferro, label = 'Ferro')
+plt.plot(Agrafico, Vprata, label = 'Prata')
+plt.plot(Agrafico, Vouro, label = 'Ouro')
+plt.plot(Agrafico, Vplatina, label = 'Platina')
 plt.axis([-90, 0, 0, max(Vgrafico)])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Tempo(s)')     # Definindo a label do eixo y
 plt.xlabel('Ângulo (graus)')     # Definindo a label do eixo x
 plt.title('Chumbo')     # Definindo o título
+plt.legend()        # Criando uma legenda
 plt.show()     # Faz o gráfico aparecer
 

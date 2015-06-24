@@ -1,4 +1,7 @@
 
-lista = list(range())
+lista = [1,2,3,4,5]
 
-print(lista)
+for i in lista:
+    print(i)
+    if i >= 2:
+        break

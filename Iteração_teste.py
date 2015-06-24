@@ -87,14 +87,21 @@ for i in range(19):
 
     Tstop = []
 
-    for x in range(1, len(Z)-1):
+    stop = 0
 
-        if Z[x][0] > Z[x+1][0]:
-            if Z[x][0] > Z[x-1][0]:
-                if Z[x][0] <= 2:
+    range_list = range(len(Z)-2,0,-1)
+
+    for x in range_list:
+
+        if Z[x][0] <= 2:
+            if Z[x][0] > Z[x+1][0]:
+                if Z[x][0] > Z[x-1][0]:
                     Tstop.append(x*TPM)
 
-    Vgrafico.append(Tstop[0])
+        else:
+            break
+
+    Vgrafico.append(Tstop[-1])
 
 
 #======================================================================================================================#
