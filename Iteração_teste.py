@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jun 12 13:51:26 2015
+Created on Sun Jun 21 16:18:24 2015
 
 @author: Nicolas Gentil e Nicolas Fonteyne
 
@@ -51,71 +51,59 @@ def chumbo(v,t):
 
     # DEFININDO OS PARÂMETROS A SEREM UTILIZADOS NO CÁLCULO:
 
-y0 = math.pi/2
-z0 = -1
-V0 = [y0, z0]
-
 Tinicial = 0    # Tempo inicial
-Tfinal = 50000   # Tempo final
+Tfinal = 50000    # Tempo final
 Nmed = (Tfinal*10)+1  # Número de medições no intervalo de tempo
 
 TPM = Tfinal/Nmed     # Tempo por medição (s)
 
 T = linspace(Tinicial, Tfinal, Nmed)  # criando a lista de tempo e o número de medições nesse intervalo de tempo
 
+    # CRIANDO A LITSA DE ÂNGULOS PARA O GRÁFICO
 
-    # EXECUTANDO O CÁLCULO:
-
-Z = odeint(chumbo, V0, T)       # obtendo os valores a serem plotados a parte da função da derivada da curva
-
-
-    # TRANSFORMANDO OS DADOS DE RAD PARA GRAUS E ACERTANDO O MÓDULO:
-
-for e in Z:
-    e[0] = pi_rad(e[0])
+Agrafico = []
+for i in range(19):
+    a = -90 + i*5
+    Agrafico.append(a)
 
 
-    # OBTENDO OS PONTOS MÁXIMOS DA FUNÇÃO ANTERIOR:
+    # CALCULANDO OS VALORES DO EIXO Y DO GRÁFICO (TEMPO DE ESTABILIZAÇÃO)
 
-p_maximo = []
-T2 = []
+Vgrafico = []
+for i in range(19):
 
+    print(i)
+    print('')
 
-for i in range(1, len(Z)-1):
+    y0 = (math.pi/2) + (i*((math.pi/180)*5))
+    z0 = 0
+    V0 = [y0, z0]
 
-    if Z[i][0] > Z[i+1][0]:
-        if Z[i][0] > Z[i-1][0]:
-            p_maximo.append(Z[i][0])
-            T2.append(i*TPM)
+    Z = odeint(chumbo, V0, T)
 
+    for e in Z:
+        e[0] = pi_rad(e[0])
+        e[0] = e[0] - 180
 
-    # OBTENDO OS PONTOS MÍNIMOS DA FUNÇÃO ANTERIOR:
+    Tstop = []
 
-p_minimo = []
-T3 = []
+    for x in range(1, len(Z)-1):
 
-for i in range(1, len(Z)-1):
+        if Z[x][0] > Z[x+1][0]:
+            if Z[x][0] > Z[x-1][0]:
+                if Z[x][0] <= 2:
+                    Tstop.append(x*TPM)
 
-    if Z[i][0] < Z[i+1][0]:
-        if Z[i][0] < Z[i-1][0]:
-            p_minimo.append(Z[i][0])
-            T3.append(i*TPM)
+    Vgrafico.append(Tstop[0])
+
 
 #======================================================================================================================#
 
 # PLOTANDO OS DADOS:
 
-plt.plot(T, Z[:, 0],'g')     # Definindo quais variaveis serão plotados
-plt.axis([0, max(T), 90, 270])     # Definindo os valores máx e min a serem plotados
-plt.ylabel('Ângulo (graus)')     # Definindo a label do eixo y
-plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
-plt.title('Chumbo')     # Definindo o título
-plt.show()     # Faz o gráfico aparecer
-
-plt.plot(T2, p_maximo)     # Definindo quais variaveis serão plotados
-plt.plot(T3, p_minimo)     # Definindo quais variaveis serão plotados
-plt.axis([0, max(T2), 90, 270])     # Definindo os valores máx e min a serem plotados
-plt.ylabel('Ângulo Máximo/Mínimo (graus)')     # Definindo a label do eixo y
-plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
+plt.plot(Agrafico, Vgrafico,'g')     # Definindo quais variaveis serão plotados
+plt.axis([-90, 0, 0, max(Vgrafico)])     # Definindo os valores máx e min a serem plotados
+plt.ylabel('Tempo(s)')     # Definindo a label do eixo y
+plt.xlabel('Ângulo (graus)')     # Definindo a label do eixo x
 plt.title('Chumbo')     # Definindo o título
 plt.show()     # Faz o gráfico aparecer

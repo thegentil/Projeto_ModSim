@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jun 12 13:51:26 2015
+Created on Sun Jun 21 16:18:24 2015
 
 @author: Nicolas Gentil e Nicolas Fonteyne
 
@@ -25,24 +25,56 @@ from Parametros import *
 
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
-from numpy import linspace 
+from numpy import linspace
 
 '''
-Iteração 2
+Iteração 3
 
 Considerações Especificas:
- 
+
 - O pêndulo é constituido por apenas uma bolinha.
-- Consideramos diferentes materiais para as bolinha (O que altera, portanto, a densidade e 
-  massa de cada uma das bolinhas)
+- Consideramos que a bolinha é de Chumbo
 
 '''
 
-# DEFININDO OS PARÂMETROS A SEREM UTILIZADOS NO CÁLCULO:
+#======================================================================================================================#
 
-y0 = -math.pi/2
-z0 = 0
-V0 = [y0, z0]
+# FAZENDO OS CÁLCULOS:
+
+    # FUNÇÃO DA DERIVADA:
+
+def chumbo(v,t):
+    dydt = v[1]
+    dzdt = ((mChumbo*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mChumbo*l)
+    return [dydt, dzdt]
+
+def aluminio(v,t):
+    dydt = v[1]
+    dzdt = ((mAluminio*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mAluminio*l)
+    return [dydt, dzdt]
+
+def ferro(v,t):
+    dydt = v[1]
+    dzdt = ((mFerro*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mFerro*l)
+    return [dydt, dzdt]
+
+def prata(v,t):
+    dydt = v[1]
+    dzdt = ((mPrata*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mPrata*l)
+    return [dydt, dzdt]
+
+def ouro(v,t):
+    dydt = v[1]
+    dzdt = ((mOuro*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mOuro*l)
+    return [dydt, dzdt]
+
+def platina(v,t):
+    dydt = v[1]
+    dzdt = ((mPlatina*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mPlatina*l)
+    return [dydt, dzdt]
+
+
+    # DEFININDO OS PARÂMETROS A SEREM UTILIZADOS NO CÁLCULO:
 
 Tinicial = 0    # Tempo inicial
 Tfinal = 50000    # Tempo final
@@ -52,71 +84,52 @@ TPM = Tfinal/Nmed     # Tempo por medição (s)
 
 T = linspace(Tinicial, Tfinal, Nmed)  # criando a lista de tempo e o número de medições nesse intervalo de tempo
 
-#======================================================================================================================#
+    # CRIANDO A LITSA DE ÂNGULOS PARA O GRÁFICO
 
-# DEFININDO AS FUNÇÕES PARA CADA MATERIAL:
+Agrafico = []
+for i in range(19):
+    a = -90 + i*5
+    Agrafico.append(a)
 
-    # ALUMÍNIO:
 
-def aluminio(v,t):
-    dydt = v[1]
-    dzdt = ((mAluminio*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mAluminio*l)
-    return [dydt, dzdt]
+    # CALCULANDO OS VALORES DO EIXO Y DO GRÁFICO (TEMPO DE ESTABILIZAÇÃO)
 
-    # CHUMBO:
+Vgrafico = []
+for i in range(19):
 
-def chumbo(v,t):
-    dydt = v[1]
-    dzdt = ((mChumbo*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mChumbo*l)
-    return [dydt, dzdt]
+    print(i)
+    print('')
 
-    # FERRO:
+    y0 = (math.pi/2) + (i*((math.pi/180)*5))
+    z0 = 0
+    V0 = [y0, z0]
 
-def ferro(v,t):
-    dydt = v[1]
-    dzdt = ((mFerro*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mFerro*l)
-    return [dydt, dzdt]
-
-    # OURO:
-
-def ouro(v,t):
-    dydt = v[1]
-    dzdt = ((mOuro*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mOuro*l)
-    return [dydt, dzdt]
-
-    # PLATINA:
-
-def platina(v,t):
-    dydt = v[1]
-    dzdt = ((mPlatina*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mPlatina*l)
-    return [dydt, dzdt]
-
-    # PRATA:
-
-def prata(v,t):
-    dydt = v[1]
-    dzdt = ((mPrata*g*math.sin(v[0])) - (k*(l**2)*(v[1]*((v[1]**2)**0.5))))/(mPrata*l)
-    return [dydt, dzdt]
-
-#======================================================================================================================#
-
-# FAZENDO OS CÁLCULOS E PLOTANDO OS DADOS:
-
-lista_funcoes = [aluminio, chumbo, ferro, ouro, platina, prata] # definindo uma lista com o nome das funções
-
-for f in lista_funcoes:     # fazendo um for loop para criar fazer os cálculos e plotar os dados obtidos
-
-    Z = odeint(f, V0, T)
+    Z = odeint(chumbo, V0, T)
 
     for e in Z:
         e[0] = pi_rad(e[0])
-        e[0] = e[0] + 180
+        e[0] = e[0] - 180
 
-    plt.plot(T, Z[:, 0])     # Definindo quais variaveis serão plotados
-    plt.axis([0, max(T), -100, 100])     # Definindo os valores máx e min a serem plotados
-    plt.ylabel('Ângulo (graus)')     # Definindo a label do eixo y
-    plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
-    plt.title(str(f).upper())     # Definindo o título
-    plt.show()     # Faz o gráfico aparecer
+    Tstop = []
 
+    for x in range(1, len(Z)-1):
+
+        if Z[x][0] > Z[x+1][0]:
+            if Z[x][0] > Z[x-1][0]:
+                if Z[x][0] <= 2:
+                    Tstop.append(x*TPM)
+
+    Vgrafico.append(Tstop[0])
+
+
+#======================================================================================================================#
+
+# PLOTANDO OS DADOS:
+
+plt.plot(Agrafico, Vgrafico,'g')     # Definindo quais variaveis serão plotados
+plt.axis([-90, 0, 0, max(Vgrafico)])     # Definindo os valores máx e min a serem plotados
+plt.ylabel('Tempo(s)')     # Definindo a label do eixo y
+plt.xlabel('Ângulo (graus)')     # Definindo a label do eixo x
+plt.title('Chumbo')     # Definindo o título
+plt.show()     # Faz o gráfico aparecer
 
