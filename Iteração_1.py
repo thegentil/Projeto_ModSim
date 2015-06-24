@@ -73,6 +73,7 @@ Z = odeint(chumbo, V0, T)       # obtendo os valores a serem plotados a parte da
 
 for e in Z:
     e[0] = pi_rad(e[0])
+    e[0] = e[0] - 180
 
 
     # OBTENDO OS PONTOS MÁXIMOS DA FUNÇÃO ANTERIOR:
@@ -106,15 +107,15 @@ for i in range(1, len(Z)-1):
 # PLOTANDO OS DADOS:
 
 plt.plot(T, Z[:, 0],'g')     # Definindo quais variaveis serão plotados
-plt.axis([0, max(T), 90, 270])     # Definindo os valores máx e min a serem plotados
+plt.axis([0, max(T), -100, 100])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Ângulo (graus)')     # Definindo a label do eixo y
 plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
 plt.title('Chumbo')     # Definindo o título
 plt.show()     # Faz o gráfico aparecer
 
-plt.plot(T2, p_maximo)     # Definindo quais variaveis serão plotados
-plt.plot(T3, p_minimo)     # Definindo quais variaveis serão plotados
-plt.axis([0, max(T2), 90, 270])     # Definindo os valores máx e min a serem plotados
+plt.plot(T2, p_maximo, 'r')     # Definindo quais variaveis serão plotados
+plt.plot(T3, p_minimo, 'b')     # Definindo quais variaveis serão plotados
+plt.axis([0, max(T2), -100, 100])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Ângulo Máximo/Mínimo (graus)')     # Definindo a label do eixo y
 plt.xlabel('Tempo (s)')     # Definindo a label do eixo x
 plt.title('Chumbo')     # Definindo o título
