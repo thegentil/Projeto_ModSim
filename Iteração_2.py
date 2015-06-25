@@ -16,10 +16,11 @@ Considerações Gerais:
 - A bolinha só se desloca nos eixos x e y do plano cartesiano.
 - A bolinha é considerada como um ponto no espaço, este ponto é seu centro de massa.
 - Temperatura do ar é constante em 25˚C
-
+- A bolinha só perde energia em seu moviento segundo o atrito com o ar;
+- A corda que sustenta a bolinha é ideal: sem massa e incapaz de se deformar;
 """
 
-# Importando as bibliotecas necessárias:
+# IMPORTANDO AS BIBLIOTECAS NECESSÁRIAS:
 
 from Parametros import *
 
@@ -70,9 +71,9 @@ for i in range(19):
     # CALCULANDO OS VALORES DO EIXO Y DO GRÁFICO (TEMPO DE ESTABILIZAÇÃO)
 
 Vgrafico = []
-for i in range(19):
+for i in range(19):     # determinando um for loop que faz o cálculo de tempo de estabilização para cada um dos ângulos
 
-    print(i)
+    print((1/19*(i+1)) * 100, '% concluído')
     print('')
 
     y0 = (math.pi/2) + (i*((math.pi/180)*5))

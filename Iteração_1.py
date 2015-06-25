@@ -12,14 +12,15 @@ Pergunta: Quanto tempo é necessário para que o pêndulo pare, em função do �
 
 Considerações Gerais:
 
-- O fio que segura a bolinha não tem massa.
-- A bolinha só se desloca nos eixos x e y do plano cartesiano.
-- A bolinha é considerada como um ponto no espaço, este ponto é seu centro de massa.
-- Temperatura do ar é constante em 25˚C
-
+- O fio que segura a bolinha não tem massa;
+- A bolinha só se desloca nos eixos x e y do plano cartesiano;
+- A bolinha é considerada como um ponto no espaço, este ponto é seu centro de massa;
+- Temperatura do ar é constante em 25˚C;
+- A bolinha só perde energia em seu moviento segundo o atrito com o ar;
+- A corda que sustenta a bolinha é ideal: sem massa e incapaz de se deformar;
 """
 
-# Importando as bibliotecas necessárias:
+# IMPORTANDO AS BIBLIOTECAS NECESSÁRIAS:
 
 from Parametros import *
 
@@ -32,9 +33,9 @@ Iteração 1
 
 Considerações Especificas:
 
-- O pêndulo é constituido por apenas uma bolinha.
-- Consideramos que a bolinha é de Chumbo
-
+- O pêndulo é constituido por apenas uma bolinha;
+- Consideramos que a bolinha é de Chumbo;
+-
 '''
 
 #======================================================================================================================#

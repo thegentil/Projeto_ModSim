@@ -16,10 +16,11 @@ Considerações Gerais:
 - A bolinha só se desloca nos eixos x e y do plano cartesiano.
 - A bolinha é considerada como um ponto no espaço, este ponto é seu centro de massa.
 - Temperatura do ar é constante em 25˚C
-
+- A bolinha só perde energia em seu moviento segundo o atrito com o ar;
+- A corda que sustenta a bolinha é ideal: sem massa e incapaz de se deformar;
 """
 
-# Importando as bibliotecas necessárias:
+# IMPORTANDO AS BIBLIOTECAS NECESSÁRIAS:
 
 from Parametros import *
 
@@ -86,7 +87,7 @@ TPM = Tfinal/Nmed     # Tempo por medição (s)
 
 T = linspace(Tinicial, Tfinal, Nmed)  # criando a lista de tempo e o número de medições nesse intervalo de tempo
 
-    # CRIANDO A LITSA DE ÂNGULOS PARA O GRÁFICO
+    # CRIANDO A LITSA DE ÂNGULOS PARA O GRÁFICO (EIXO X):
 
 Agrafico = []
 for i in range(19):
@@ -94,7 +95,7 @@ for i in range(19):
     Agrafico.append(a)
 
 
-    # CALCULANDO OS VALORES DO EIXO Y DO GRÁFICO (TEMPO DE ESTABILIZAÇÃO)
+    # CALCULANDO OS VALORES DO TEMPO DE ESTABILIZAÇÃO DO PÊNDULO (EIXO Y):
 
 Vchumbo = []
 Valuminio = []
@@ -104,15 +105,43 @@ Vouro = []
 Vplatina = []
 for f in lista_materiais:
 
-    Vgrafico = []
+    print('')
+
+    if f == chumbo:
+        print('MÓDULO "CHUMBO"')
+
+    elif f == aluminio:
+        print('MÓDULO "ALUMÍNIO"')
+
+    elif f == ferro:
+        print('MÓDULO "FERRO"')
+
+    elif f == prata:
+        print('MÓDULO "PRATA"')
+
+    elif f == ouro:
+        print('MÓDULO "OURO"')
+
+    elif f == platina:
+        print('MÓDULO "PLATINA"')
+
+    else:
+        print('MÓDULO INEXISTENTE')
+
     for i in range(19):
 
-        print(i)
+        print(int((1/19*(i+1)) * 100), '% concluído')
         print('')
 
         y0 = (math.pi/2) + (i*((math.pi/180)*5))
         z0 = 0
         V0 = [y0, z0]
+
+        if f == platina:
+            T = linspace(Tinicial, 65000, 650001)
+
+        else:
+            pass
 
         Z = odeint(f, V0, T)
 
@@ -128,6 +157,11 @@ for f in lista_materiais:
                 if Z[x][0] > Z[x+1][0]:
                     if Z[x][0] > Z[x-1][0]:
                         Tstop.append(x*TPM)
+
+            else:
+                pass
+
+        print(Tstop)
 
 
         if f == chumbo:
@@ -156,16 +190,16 @@ for f in lista_materiais:
 
 # PLOTANDO OS DADOS:
 
-plt.plot(Agrafico, Vchumbo, label = 'Chumbo')     # Definindo quais variaveis serão plotados
+plt.plot(Agrafico, Vchumbo, 'g', label = 'Chumbo')     # Definindo quais variaveis serão plotados
 plt.plot(Agrafico, Valuminio, label = 'Alumínio')
 plt.plot(Agrafico, Vferro, label = 'Ferro')
 plt.plot(Agrafico, Vprata, label = 'Prata')
 plt.plot(Agrafico, Vouro, label = 'Ouro')
 plt.plot(Agrafico, Vplatina, label = 'Platina')
-plt.axis([-90, 0, 0, max(Vgrafico)])     # Definindo os valores máx e min a serem plotados
+plt.axis([-90, 0, 0, max(Vplatina)])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Tempo(s)')     # Definindo a label do eixo y
 plt.xlabel('Ângulo (graus)')     # Definindo a label do eixo x
-plt.title('Chumbo')     # Definindo o título
+plt.title('Tempo X Ângulo')     # Definindo o título
 plt.legend()        # Criando uma legenda
 plt.show()     # Faz o gráfico aparecer
 
