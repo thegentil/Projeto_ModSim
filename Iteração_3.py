@@ -161,8 +161,6 @@ for f in lista_materiais:
             else:
                 pass
 
-        print(Tstop)
-
 
         if f == chumbo:
             Vchumbo.append(Tstop[0])
@@ -190,16 +188,14 @@ for f in lista_materiais:
 
 # PLOTANDO OS DADOS:
 
-plt.plot(Agrafico, Vchumbo, 'g', label = 'Chumbo')     # Definindo quais variaveis serão plotados
-plt.plot(Agrafico, Valuminio, label = 'Alumínio')
-plt.plot(Agrafico, Vferro, label = 'Ferro')
-plt.plot(Agrafico, Vprata, label = 'Prata')
-plt.plot(Agrafico, Vouro, label = 'Ouro')
-plt.plot(Agrafico, Vplatina, label = 'Platina')
-plt.axis([-90, 0, 0, max(Vplatina)])     # Definindo os valores máx e min a serem plotados
+plt.plot(Agrafico, Valuminio)   # Definindo quais variaveis serão plotados
+plt.plot(Agrafico, Vchumbo)
+plt.plot(Agrafico, Vferro)
+plt.plot(Agrafico, Vprata)
+plt.plot(Agrafico, Vouro)
+plt.plot(Agrafico, Vplatina)
+plt.axis([-90, 0, 0, max(Vplatina)+500])     # Definindo os valores máx e min a serem plotados
 plt.ylabel('Tempo(s)')     # Definindo a label do eixo y
 plt.xlabel('Ângulo (graus)')     # Definindo a label do eixo x
 plt.title('Tempo X Ângulo')     # Definindo o título
-plt.legend()        # Criando uma legenda
 plt.show()     # Faz o gráfico aparecer
-
